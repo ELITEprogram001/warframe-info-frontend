@@ -3,6 +3,8 @@ import axios from 'axios'
 import WorldStatusQuickView from '../components/WorldStatusQuickView'
 import ImageLink from '../components/ImageLink'
 import '../styles/Home.css'
+import withTimer from '../components/Timer'
+import WorldStatusTile from '../components/WorldStatusTile'
 
 function Home(props) {
     
@@ -16,20 +18,20 @@ function Home(props) {
         return sum
     }
 
-    const [worldstatuses, setWorldStatuses] = useState({cetus:{},vallis:{},cambion:{}})
+    const [worldstatuses, setWorldStatuses] = useState({cetus:{},fortuna:{},deimos:{}})
 
     async function fetchWorldStatus() {
         const res = await axios.get('https://api.warframestat.us/pc')
         console.log(`%cfetching api...`, 'color:#009B77')
         console.groupCollapsed('World Times')
         console.log(`  cetus: ${res.data.cetusCycle.timeLeft}`)
-        console.log(` vallis: ${res.data.vallisCycle.timeLeft}`)
-        console.log(`cambion: ${res.data.cambionCycle.timeLeft}`)
+        console.log(`fortuna: ${res.data.vallisCycle.timeLeft}`)
+        console.log(` deimos: ${res.data.cambionCycle.timeLeft}`)
         console.groupEnd()
         setWorldStatuses({
             cetus: res.data.cetusCycle,
-            vallis: res.data.vallisCycle,
-            cambion: res.data.cambionCycle,
+            fortuna: res.data.vallisCycle,
+            deimos: res.data.cambionCycle,
         })
     }
 
@@ -41,38 +43,61 @@ function Home(props) {
         fetchWorldStatus()
     }
 
+    // felt testing - might delete later ;)
+    const WorldStatus = WorldStatusTile
+    const CetusStatusWithTimer = withTimer(WorldStatus, worldstatuses.cetus.timeLeft)
+    const FortunaStatusWithTimer = withTimer(WorldStatus, worldstatuses.fortuna.timeLeft)
+    const DeimosStatusWithTimer = withTimer(WorldStatus, worldstatuses.deimos.timeLeft)
+
     return (
         <div className='content-wrapper'>
             <div className='home-content'>
                 <div className='major-news news'>
                     <img src='http://localhost:5055/imgs/wf-example-major-news.jpeg' alt='warframe-news' />
                 </div>
-                <h1 className='status-title section-header'>World Statuses</h1>
-                {worldstatuses.cetus.timeLeft && <WorldStatusQuickView 
+                <h1 className='status-header section-header'>World Statuses</h1>
+                {worldstatuses.cetus.timeLeft && <CetusStatusWithTimer 
                     className='cetus'
-                    title='Cetus'
+                    title='Plains of Eidolon'
                     refresh={refreshAPI}
-                    seconds={getTimeInSeconds(worldstatuses.cetus.timeLeft)}
                 />}
-                {worldstatuses.vallis.timeLeft && <WorldStatusQuickView 
+                {worldstatuses.fortuna.timeLeft && <FortunaStatusWithTimer 
                     className='fortuna'
                     title='Orb Vallis'
                     refresh={refreshAPI}
-                    seconds={getTimeInSeconds(worldstatuses.vallis.timeLeft)}
+                />}
+                {worldstatuses.deimos.timeLeft && <DeimosStatusWithTimer 
+                    className='cetus'
+                    title='Cambion Drift'
+                    refresh={refreshAPI}
+                />}
+                {/* This code works but doesn't implement HOC design pattern.
+                    Delete this code when you're satisfied the HOC timer structure works 100%.
+                {worldstatuses.cetus.timeLeft && <WorldStatusQuickView 
+                    className='cetus'
+                    title='Plains of Eidolon'
+                    refresh={refreshAPI}
+                    seconds={getTimeInSeconds(worldstatuses.cetus.timeLeft)}
+                />}
+                {worldstatuses.fortuna.timeLeft && <WorldStatusQuickView 
+                    className='fortuna'
+                    title='Orb Vallis'
+                    refresh={refreshAPI}
+                    seconds={getTimeInSeconds(worldstatuses.fortuna.timeLeft)}
                 />}
                 {worldstatuses.cambion.timeLeft && <WorldStatusQuickView 
                     className='deimos'
-                    title='Deimos'
+                    title='Cambion Drift'
                     refresh={refreshAPI}
                     seconds={getTimeInSeconds(worldstatuses.cambion.timeLeft)}
-                />}
+                />} */}
 
                 <h1 className='explore-title section-header'>Explore Game Content</h1>
-                <ImageLink 
+                <ImageLink
                     src='http://localhost:5055/imgs/wf-primary-img-link.jpg'
                     title='Primaries'
                     link='/items'
-                    className='primary' 
+                    className='primary'
                 />
                 <ImageLink 
                     src='http://localhost:5055/imgs/wf-secondary-img-link.png'

@@ -8,7 +8,7 @@
     gap: 15px;
     grid-template-areas: 
         "major major major"
-        "status-title status-title status-title"
+        "status-header status-header status-header"
         "cetus fortuna deimos"
         "explore-title explore-title explore-title"
         "primary secondary warframe";
@@ -29,8 +29,8 @@
     object-fit: cover;
 }
 
-.status-title {
-    grid-area: status-title;
+.status-header {
+    grid-area: status-header;
 }
 
 .explore-title {
@@ -41,6 +41,21 @@
     font-family: var(--font-title);
     font-size: 1.8rem;
     color: white;
+    margin: 0;
+    display: flex;
+    align-items: flex-end;
+}
+
+.cetus {
+    grid-area: cetus;
+}
+
+.fortuna {
+    grid-area: fortuna;
+}
+
+.deimos {
+    grid-area: deimos;
 }
 
 .primary {

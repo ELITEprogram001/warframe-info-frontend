@@ -46,8 +46,11 @@ export default function WorldStatusQuickView({seconds, refresh, title}) {
 
     return (
         <div className='world-status'>
-            <h2>{title}</h2>
-            <p>timeLeft = {printTime(time)}</p>
+            <div className='status-wrapper'>
+                <h2 className='status-title'>{title}</h2>
+                <p>timeLeft = {printTime(time)}</p>
+            </div>
+            <img src='' alt='status-graphic'/>
         </div>
     )
 }
