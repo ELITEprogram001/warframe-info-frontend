@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Ubuntu:ital,wght@0,300;0,400;0,700;1,400&display=swap');
+
+:root {
+  font-size: 16px;
+  font-family: 'Ubuntu', sans-serif;
+  color: #ddd;
+  --main-fg-color: #086084;
+  --main-bg-color: #121212;
+  --sec-bg-color: #1e1e1e;
+  --font-title: 'Orbitron', sans-serif;
+  --font-body: 'Ubuntu', sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--main-bg-color);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.content-wrapper {
+  font-family: var(--font-body);
+  margin: 50px 0 3rem 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+footer {
+  border-top: 2px solid var(--main-fg-color);
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-end;
+  font-size: 14px;
+}
+
+footer h4 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.footer-attributions {
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.footer-attributions ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-attributions li {
+  margin: .2rem 0;
+}

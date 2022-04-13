@@ -1,0 +1,56 @@
+.home-content {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 500px 60px 200px 60px 1fr;
+    gap: 15px;
+    grid-template-areas: 
+        "major major major"
+        "status-title status-title status-title"
+        "cetus fortuna deimos"
+        "explore-title explore-title explore-title"
+        "primary secondary warframe";
+}
+
+.news {
+    background: var(--sec-bg-color)
+}
+
+.major-news {
+    grid-area: major;
+    width: 100vw;
+    height: 100%;
+    justify-self: center;
+}
+
+.major-news img {
+    object-fit: cover;
+}
+
+.status-title {
+    grid-area: status-title;
+}
+
+.explore-title {
+    grid-area: explore-title;
+}
+
+.section-header {
+    font-family: var(--font-title);
+    font-size: 1.8rem;
+    color: white;
+}
+
+.primary {
+    grid-area: primary;
+}
+
+.secondary {
+    grid-area: secondary;
+}
+
+.warframe {
+    grid-area: warframe;
+}
