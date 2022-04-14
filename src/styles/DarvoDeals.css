@@ -1,3 +1,92 @@
+.deal-tile {
+    border: 1px solid #444;
+    border-radius: 10px;
+    box-sizing: border-box;
+    position: relative;
+}
+
 .deal-item-name {
     font-family: var(--font-title)
 }
+
+.deal-item-name span {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: .8rem;
+    font-weight: 300;
+    margin: 0 .2rem;
+}
+
+.out-of-stock-overlay {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    position: absolute;
+    background: rgba(0, 0, 0, .5);
+    z-index: 500;
+}
+
+.out-of-stock-banner {
+    display: none;
+    width: 100%;
+    background: rgba(255, 30, 0, 0.534);
+    border-top: 1px solid red;
+    border-bottom: 1px solid red;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: calc(50% - 1rem);
+    z-index: 500;
+}
+
+.deal-wrapper {
+    height: 100%;
+    padding: .3rem .75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.show {
+    display: block;
+}
+
+.stock-info {
+    position: absolute;
+    bottom: .75rem;
+    left: .75rem;
+    width: calc(100% - 1.5rem);
+}
+
+.meter {
+    height: 5px;
+    border-radius: 5px;
+    align-self: center;
+}
+
+.items-out {
+    width: 100%;
+    background: red;
+}
+
+.items-left {
+    width: 0%;
+    background: lightgreen;
+}
+
+.deal-wrapper img {
+    width: 50%;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.deal-wrapper p {
+    margin: 0;
+}
+
