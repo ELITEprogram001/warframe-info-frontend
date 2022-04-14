@@ -1,10 +1,16 @@
 import {useState, useEffect} from 'react'
 import axios from 'axios'
-import WorldStatusQuickView from '../components/WorldStatusQuickView'
 import ImageLink from '../components/ImageLink'
 import '../styles/Home.css'
 import withTimer from '../components/Timer'
 import WorldStatusTile from '../components/WorldStatusTile'
+import DarvoDeals from '../components/DarvoDeals'
+
+axios.defaults.headers = {
+    'Cache-Control': 'no-cache',
+    'Pragma': 'no-cache',
+    'Expires': '0',
+}
 
 function Home(props) {
     
@@ -18,20 +24,22 @@ function Home(props) {
         return sum
     }
 
-    const [worldstatuses, setWorldStatuses] = useState({cetus:{},fortuna:{},deimos:{}})
+    const [worldstatuses, setWorldStatuses] = useState({cetus:{},fortuna:{},deimos:{},deals:[]})
 
     async function fetchWorldStatus() {
         const res = await axios.get('https://api.warframestat.us/pc')
         console.log(`%cfetching api...`, 'color:#009B77')
-        console.groupCollapsed('World Times')
-        console.log(`  cetus: ${res.data.cetusCycle.timeLeft}`)
-        console.log(`fortuna: ${res.data.vallisCycle.timeLeft}`)
-        console.log(` deimos: ${res.data.cambionCycle.timeLeft}`)
+        console.groupCollapsed('%cWorld Times', 'font-weight:bold')
+        console.log(`%c  cetus%c: ${res.data.cetusCycle.timeLeft}`, 'color:#00FF00', 'color:white')
+        console.log(`%cfortuna%c: ${res.data.vallisCycle.timeLeft}`, 'color:#00FF00', 'color:white')
+        console.log(`%c deimos%c: ${res.data.cambionCycle.timeLeft}`, 'color:#00FF00', 'color:white')
+        console.log(`%c  deals%c: ${res.data.dailyDeals[0].item}`, 'color:#BEC2CB', 'color:white')
         console.groupEnd()
         setWorldStatuses({
             cetus: res.data.cetusCycle,
             fortuna: res.data.vallisCycle,
             deimos: res.data.cambionCycle,
+            deals: res.data.dailyDeals,
         })
     }
 
@@ -43,11 +51,15 @@ function Home(props) {
         fetchWorldStatus()
     }
 
-    // felt testing - might delete later ;)
     const WorldStatus = WorldStatusTile
     const CetusStatusWithTimer = withTimer(WorldStatus, worldstatuses.cetus.timeLeft)
     const FortunaStatusWithTimer = withTimer(WorldStatus, worldstatuses.fortuna.timeLeft)
     const DeimosStatusWithTimer = withTimer(WorldStatus, worldstatuses.deimos.timeLeft)
+    let deals = worldstatuses.deals.map(item => {
+        const Deal = withTimer(DarvoDeals, item.eta)
+        return <Deal key={item.id} deal={item} />
+    })
+    
 
     return (
         <div className='content-wrapper'>
@@ -59,40 +71,24 @@ function Home(props) {
                 {worldstatuses.cetus.timeLeft && <CetusStatusWithTimer 
                     className='cetus'
                     title='Plains of Eidolon'
+                    world={worldstatuses.cetus}
                     refresh={refreshAPI}
                 />}
                 {worldstatuses.fortuna.timeLeft && <FortunaStatusWithTimer 
                     className='fortuna'
                     title='Orb Vallis'
+                    world={worldstatuses.fortuna}
                     refresh={refreshAPI}
                 />}
                 {worldstatuses.deimos.timeLeft && <DeimosStatusWithTimer 
                     className='cetus'
                     title='Cambion Drift'
+                    world={worldstatuses.deimos}
                     refresh={refreshAPI}
                 />}
-                {/* This code works but doesn't implement HOC design pattern.
-                    Delete this code when you're satisfied the HOC timer structure works 100%.
-                {worldstatuses.cetus.timeLeft && <WorldStatusQuickView 
-                    className='cetus'
-                    title='Plains of Eidolon'
-                    refresh={refreshAPI}
-                    seconds={getTimeInSeconds(worldstatuses.cetus.timeLeft)}
-                />}
-                {worldstatuses.fortuna.timeLeft && <WorldStatusQuickView 
-                    className='fortuna'
-                    title='Orb Vallis'
-                    refresh={refreshAPI}
-                    seconds={getTimeInSeconds(worldstatuses.fortuna.timeLeft)}
-                />}
-                {worldstatuses.cambion.timeLeft && <WorldStatusQuickView 
-                    className='deimos'
-                    title='Cambion Drift'
-                    refresh={refreshAPI}
-                    seconds={getTimeInSeconds(worldstatuses.cambion.timeLeft)}
-                />} */}
-
-                <h1 className='explore-title section-header'>Explore Game Content</h1>
+                <h1 className='darvo-header section-header'>Darvo Deals</h1>
+                {worldstatuses.deals && deals}
+                <h1 className='explore-header section-header'>Explore Game Content</h1>
                 <ImageLink
                     src='http://localhost:5055/imgs/wf-primary-img-link.jpg'
                     title='Primaries'

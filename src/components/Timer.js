@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 
 export default function withTimer (WrappedComponent, timeString) {
-    return ({...props}) => {
+    return ({refresh, ...props}) => {
         
         function getTimeInSeconds(timeString='0') {
             const parts = timeString.split(' ')
@@ -44,8 +44,8 @@ export default function withTimer (WrappedComponent, timeString) {
     
         useEffect(() => {
             const refreshTimer = setTimeout(() => {
-                // refresh()
-            }, (getTimeInSeconds(timeString) + 5) * 1000)
+                refresh()
+            }, (getTimeInSeconds(timeString) + 10) * 1000)
             console.log(`setting refresh timer id:${refreshTimer} for ${getTimeInSeconds(timeString) + 5}s`)
             setTime(getTimeInSeconds(timeString))
             return () => {
