@@ -3,19 +3,23 @@
     flex-direction: column;
     width: 90%;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 400px 60px 200px 60px 1fr;
     gap: 15px;
     grid-template-areas: 
-        "major major major major"
-        "status-header status-header status-header darvo-header"
-        "cetus fortuna deimos darvo"
-        "explore-header explore-header explore-header explore-header"
-        "primary secondary warframe warframe";
+        "major major major major major"
+        "status-header status-header status-header status-header darvo-header"
+        "earth cetus fortuna deimos darvo"
+        "explore-header explore-header explore-header explore-header explore-header"
+        "primary secondary warframe warframe warframe";
 }
 
 .news {
     background: var(--sec-bg-color)
+}
+
+.earth {
+    grid-area: earth;
 }
 
 .darvo-header {

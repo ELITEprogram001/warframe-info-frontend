@@ -1,5 +1,6 @@
 import NavBar from './components/NavBar'
 import Home from './routes/Home'
+import Footer from './components/Footer'
 import {
     BrowserRouter as Router,
     Routes,
@@ -16,21 +17,7 @@ function App(props) {
                 <Route path='/items' element={<ItemGrid />} />
                 <Route path='/warframes' element={<Warframes />} />
             </Routes>
-            <footer>
-                <div className='footer-attributions'>
-                    <h4>Attributions</h4>
-                    <ul>
-                        <li>
-                            <a href='https://github.com/WFCD' target='_blank' rel='noreferrer'>
-                                Warframe Community Developers
-                            </a>
-                        </li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                    </ul>
-                </div>
-            </footer>
+            <Footer />
         </Router>
     )
 }

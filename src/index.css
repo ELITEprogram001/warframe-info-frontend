@@ -4,9 +4,12 @@
   font-size: 16px;
   font-family: 'Ubuntu', sans-serif;
   color: #ddd;
-  --main-fg-color: #086084;
+  /* --main-fg-color: #086084; */
+  --main-fg-color: #ffff00;
+  /* --main-bg-color: #282c34; */
   --main-bg-color: #121212;
   --sec-bg-color: #1e1e1e;
+  --sec-fg-color: #8a87d2;
   --font-title: 'Orbitron', sans-serif;
   --font-body: 'Exo 2', sans-serif;
 }
@@ -34,36 +37,4 @@ code {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-footer {
-  border-top: 2px solid var(--main-fg-color);
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-end;
-  font-size: 14px;
-}
-
-footer h4 {
-  margin: 0;
-  font-size: 1rem;
-}
-
-.footer-attributions {
-  margin: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-
-.footer-attributions ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-.footer-attributions li {
-  margin: .2rem 0;
 }
