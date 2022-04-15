@@ -3,10 +3,12 @@
     border-radius: 10px;
     box-sizing: border-box;
     position: relative;
+    font-size: .9rem;
 }
 
 .deal-item-name {
-    font-family: var(--font-title)
+    font-family: var(--font-title);
+    margin: 0 0 .4rem 0;
 }
 
 .deal-item-name span {
@@ -79,7 +81,7 @@
     background: lightgreen;
 }
 
-.deal-wrapper img {
+.weapon-img {
     width: 50%;
     position: absolute;
     right: 0;
@@ -90,3 +92,28 @@
     margin: 0;
 }
 
+.slightly-bolded {
+    font-weight: 600;
+}
+
+.icon {
+    height: 1.3rem;
+    width: 1.3rem;
+    margin-left: .1rem;
+}
+
+.item-info-row {
+    display: flex;
+    align-items: center;
+}
+
+.items-out {
+    margin: .3rem 0 0 0;
+}
+
+.eta-timer {
+    position: absolute;
+    right: .75rem;
+    top: .3rem;
+    font-size: 1.2rem;
+}

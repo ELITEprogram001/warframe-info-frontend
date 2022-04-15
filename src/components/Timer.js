@@ -3,6 +3,9 @@ import { useState, useEffect } from "react"
 export default function withTimer (WrappedComponent, timeString) {
     return ({refresh, ...props}) => {
         
+        // 2022-04-15T07:00:00.000Z Time Format
+        // -> 2022-04-15 Resets at 2 AM CDT
+
         function getTimeInSeconds(timeString='0') {
             const parts = timeString.split(' ')
             parts.reverse()
@@ -44,7 +47,7 @@ export default function withTimer (WrappedComponent, timeString) {
     
         useEffect(() => {
             const refreshTimer = setTimeout(() => {
-                refresh()
+                // refresh() temporarily disabled due to suspected bug
             }, (getTimeInSeconds(timeString) + 10) * 1000)
             console.log(`setting refresh timer id:${refreshTimer} for ${getTimeInSeconds(timeString) + 5}s`)
             setTime(getTimeInSeconds(timeString))

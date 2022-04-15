@@ -8,6 +8,7 @@ export default function DarvoDeals({time, deal}) {
 
     async function getItem() {
         const res = await axios.get(`/api/v1/items/${deal.item}`)
+        console.log(deal)
         setImgSrc(res.data.data.imageName)
     }
 
@@ -35,11 +36,20 @@ export default function DarvoDeals({time, deal}) {
                     {deal.item}
                     <span>({`${deal.discount}% off` })</span>
                 </h1>
-                <p>Sale Price: {`${deal.salePrice} platinum`}</p>
-                <p>Original Price: {`${deal.originalPrice} platinum`}</p>
-                {imgSrc && <img src={`https://cdn.warframestat.us/img/${imgSrc}`} alt='daily deal item'/>}
+                <div className='item-info-row'>
+                    <p><span className='slightly-bolded'>Sale Price:</span> {`${deal.salePrice} `}</p>
+                    <img className='icon' src='http://localhost:5055/imgs/plat-icon.png' alt='plat icon' />
+                </div>
+                <div className='item-info-row'>
+                    <p><span className='slightly-bolded'>Original Price:</span> {`${deal.originalPrice} `}</p>
+                    <img className='icon' src='http://localhost:5055/imgs/plat-icon.png' alt='plat icon' />
+                </div>
+                {imgSrc && <img className='weapon-img' src={`https://cdn.warframestat.us/img/${imgSrc}`} alt='daily deal item'/>}
+                <div className='eta-timer'>{time}</div>
                 <div className='stock-info'>
-                    <p>Stock: {`${deal.total - deal.sold} / ${deal.total} left`}</p>
+                    <div className='item-info-row'>
+                        <p><span className='slightly-bolded'>Stock:</span> {`${deal.total - deal.sold} / ${deal.total} left`}</p>
+                    </div>
                     <div className='items-out meter'>
                         <div className='items-left meter' style={{width: `${percentItemsLeft()}%`}}>
                         </div>
