@@ -9,6 +9,10 @@
   background-color: var(--main-bg-color);
 }
 
+.wrapper {
+  width: 80%;
+}
+
 .header {
   margin: 0;
   font-size: 1rem;
@@ -30,3 +34,5 @@
 .attributionsList li {
   margin: 0.2rem 0;
 }
+
+

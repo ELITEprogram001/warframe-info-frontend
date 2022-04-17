@@ -16,9 +16,9 @@ function Home(props) {
 
     const [worldstatuses, setWorldStatuses] = useState()
     const [deals, setDeals] = useState([])
-
+ 
     async function fetchWorldStatus() {
-        const res = await axios.get('https://api.warframestat.us/pc')
+        const res = await axios.get(`https://api.warframestat.us/pc`)
         console.log(`%cfetching api...`, 'color:#009B77')
         console.groupCollapsed('%cWorld Times', 'font-weight:bold')
         console.log(`%c  cetus%c: ${res.data.cetusCycle.timeLeft}`, 'color:#00FF00', 'color:white')
@@ -46,12 +46,12 @@ function Home(props) {
     let EarthStatusWithTimer, CetusStatusWithTimer, FortunaStatusWithTimer, 
         DeimosStatusWithTimer, dealList
     if(worldstatuses) {
-        EarthStatusWithTimer = withTimer(WorldStatusTile, worldstatuses.earth.timeLeft)
-        CetusStatusWithTimer = withTimer(WorldStatusTile, worldstatuses.cetus.timeLeft)
-        FortunaStatusWithTimer = withTimer(WorldStatusTile, worldstatuses.fortuna.timeLeft)
-        DeimosStatusWithTimer = withTimer(WorldStatusTile, worldstatuses.deimos.timeLeft)
+        EarthStatusWithTimer = withTimer(WorldStatusTile, worldstatuses.earth.expiry)
+        CetusStatusWithTimer = withTimer(WorldStatusTile, worldstatuses.cetus.expiry)
+        FortunaStatusWithTimer = withTimer(WorldStatusTile, worldstatuses.fortuna.expiry)
+        DeimosStatusWithTimer = withTimer(WorldStatusTile, worldstatuses.deimos.expiry)
         dealList = deals.map(item => {
-            const Deal = withTimer(DarvoDeals, item.eta)
+            const Deal = withTimer(DarvoDeals, item.expiry)
             return <Deal key={item.id} deal={item} />
         })
     }

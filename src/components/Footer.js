@@ -3,6 +3,7 @@ import styles from '../styles/Footer.module.css'
 export default function Footer() {
     return (
         <footer className={styles.footer}>
+            <div className={styles.wrapper}>
                 <div className={styles.attributions}>
                     <h4 className={styles.header}>Attributions</h4>
                     <ul className={styles.attributionsList}>
@@ -16,6 +17,7 @@ export default function Footer() {
                         <li></li>
                     </ul>
                 </div>
+            </div>
         </footer>
     )
 }

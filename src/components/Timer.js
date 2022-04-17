@@ -1,63 +1,76 @@
 import { useState, useEffect } from "react"
 
-export default function withTimer (WrappedComponent, timeString) {
+export default function withTimer (WrappedComponent, expiry) {
     return ({refresh, ...props}) => {
         
         // 2022-04-15T07:00:00.000Z Time Format
-        // -> 2022-04-15 Resets at 2 AM CDT
 
-        function getTimeInSeconds(timeString='0') {
-            const parts = timeString.split(' ')
-            parts.reverse()
-            let sum = 0
-            parts.forEach((t, i) => {
-                sum += Number.parseInt(t) * (60 ** i)
-            })
-            return sum
-        }
+        function getTimeString() {
+            let temp = time
+            if(temp < 0) {
+                // setTimeout(refresh, 5000)
+                return 'waiting...'
+            }
 
-        function printTime(seconds) {
+            const ms = temp % 1000
+            temp = Math.floor(temp / 1000)
+            const sec = temp % 60
+            temp = Math.floor(temp / 60)
+            const min = temp % 60
+            temp = Math.floor(temp / 60)
+            const hour = temp % 24
+            temp = Math.floor(temp / 24)
+            const day = temp
+            
             let str = ''
-            let hours = Math.floor(seconds / 3600)
-            if(hours >= 1) {
-                str += `${hours}h `
-            }
-            let min = Math.floor(seconds % 3600 / 60)
-            if(min >= 1) {
-                str += `${min}m `
-            }
-            let sec = seconds % 60
-            if(sec >= 0) {
-                str += `${sec}s `
-            }
+            str += day ? `${day}d` : ''
+            str += hour ? ` ${hour}h` : ''
+            str += min ? ` ${min}m` : ''
+            str += sec ? ` ${sec}s` : ''
+    
             return str
         }
+
+        function getTimeDifference(expiration) {
+            // console.log(expiration - Date.now())
+            return expiration - Date.now()
+        }
     
-        const [time, setTime] = useState(getTimeInSeconds(timeString))
+        const [time, setTime] = useState(getTimeDifference(Date.parse(expiry)))
     
+        // Creates an adjusting timer to tick every second
         useEffect(() => {
-            console.log(`%cTimer.js useEffect triggered %ctime: ${printTime(time)}`, 'color:red', 'color: white')
-            const timer = setInterval(() => {
-                setTime(prevTime => prevTime - 1)
-            }, 1000)
+            let expected = Date.now() + 1000
+            let timer = setTimeout(tick, 1000)
+            function tick () {
+                setTime(prevTime => prevTime - 1000)
+                const drift = Date.now() - expected
+                expected += 1000
+                timer = setTimeout(tick, 1000 - drift)
+            }
             return () => {
-                clearInterval(timer)
+                clearTimeout(timer)
             }
         }, [])
     
         useEffect(() => {
+            const diff = getTimeDifference(Date.parse(expiry))
+            setTime(diff)
+            
+            let refreshTime
+            if(diff < 0) {
+                refreshTime = 5000
+            }
             const refreshTimer = setTimeout(() => {
-                // refresh() temporarily disabled due to suspected bug
-            }, (getTimeInSeconds(timeString) + 10) * 1000)
-            console.log(`setting refresh timer id:${refreshTimer} for ${getTimeInSeconds(timeString) + 5}s`)
-            setTime(getTimeInSeconds(timeString))
+                refresh()
+            }, refreshTime || (Date.parse(expiry) + 5 * 1000))
+
             return () => {
-                console.log(`cleaning up refresh timer id:${refreshTimer}`)
                 clearTimeout(refreshTimer)
             }
-        }, [timeString])
+        }, [expiry])
 
-        return <WrappedComponent time={printTime(time)} {...props} />
+        return <WrappedComponent time={getTimeString()} {...props} />
     }
 }
 

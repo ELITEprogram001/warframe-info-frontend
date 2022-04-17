@@ -8,7 +8,7 @@ export default function DarvoDeals({time, deal}) {
 
     async function getItem() {
         const res = await axios.get(`/api/v1/items/${deal.item}`)
-        console.log(deal)
+        // console.log(deal)
         setImgSrc(res.data.data.imageName)
     }
 
