@@ -1,6 +1,4 @@
 .home-content {
-    display: flex;
-    flex-direction: column;
     width: 90%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -14,10 +12,6 @@
         "primary secondary warframe warframe warframe";
 }
 
-.news {
-    background: var(--sec-bg-color)
-}
-
 .earth {
     grid-area: earth;
 }
@@ -26,15 +20,19 @@
     grid-area: darvo-header;
 }
 
-.major-news {
+.banner {
     grid-area: major;
     width: 100vw;
     height: 100%;
     justify-self: center;
+    background: var(--sec-bg-color)
 }
 
-.major-news img {
+img {
     object-fit: cover;
+    width: 100%;
+    height: 100%;
+    /* position: relative; */
 }
 
 .status-header {

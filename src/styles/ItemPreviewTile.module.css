@@ -1,0 +1,72 @@
+.tile {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #333;
+    border-radius: 8px;
+    position: relative;
+}
+
+.tile:hover .info {
+    height: 100%;
+    background: rgba(0, 0, 0, .8);
+    border-radius: 8px;
+    justify-content: flex-start;
+}
+
+.tile:hover .info .quickInfo {
+    align-self: flex-start;
+}
+
+.img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    box-sizing: border-box;
+    width: 100%;
+    padding: .5rem .75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background: #222;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    transition: 350ms ease-in-out;
+    height: 1.8rem;
+    overflow: hidden;
+}
+
+.quickInfo {
+    height: 1.8rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mrreq {
+    font-size: .8rem;
+}
+
+.itemName {
+    margin: 0;
+    font-size: 16px;
+}
+
+.desc {
+    overflow: hidden;
+    margin: 0;
+    font-size: 14px;
+}

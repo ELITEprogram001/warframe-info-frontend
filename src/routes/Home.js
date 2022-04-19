@@ -61,7 +61,7 @@ function Home(props) {
     return (
         <div className='content-wrapper'>
             <div className='home-content'>
-                <div className='major-news news'>
+                <div className='banner'>
                     <img src='/imgs/wf-example-major-news.jpeg' alt='warframe-news' />
                 </div>
                 <h1 className='status-header section-header'>World Statuses</h1>
@@ -95,13 +95,13 @@ function Home(props) {
                 <ImageLink
                     src='/imgs/wf-primary-img-link.jpg'
                     title='Primaries'
-                    link='/items'
+                    link='/items?p=1&f=Primary'
                     className='primary'
                 />
                 <ImageLink 
                     src='/imgs/wf-secondary-img-link.png'
                     title='Secondaries'
-                    link='/items'
+                    link='/items?p=1&f=Secondary'
                     className='secondary'
                 />
                 <ImageLink 

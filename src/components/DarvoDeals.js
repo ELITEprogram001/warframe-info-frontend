@@ -38,11 +38,11 @@ export default function DarvoDeals({time, deal}) {
                 </h1>
                 <div className='item-info-row'>
                     <p><span className='slightly-bolded'>Sale Price:</span> {`${deal.salePrice} `}</p>
-                    <img className='icon' src='http://localhost:5055/imgs/plat-icon.png' alt='plat icon' />
+                    <img className='icon' src='/imgs/plat-icon.png' alt='plat icon' />
                 </div>
                 <div className='item-info-row'>
                     <p><span className='slightly-bolded'>Original Price:</span> {`${deal.originalPrice} `}</p>
-                    <img className='icon' src='http://localhost:5055/imgs/plat-icon.png' alt='plat icon' />
+                    <img className='icon' src='/imgs/plat-icon.png' alt='plat icon' />
                 </div>
                 {imgSrc && <img className='weapon-img' src={`https://cdn.warframestat.us/img/${imgSrc}`} alt='daily deal item'/>}
                 <div className='eta-timer'>{time}</div>

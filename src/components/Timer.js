@@ -1,13 +1,17 @@
 import { useState, useEffect } from "react"
+import axios from 'axios'
 
 export default function withTimer (WrappedComponent, expiry) {
     return ({refresh, ...props}) => {
-        
-        // 2022-04-15T07:00:00.000Z Time Format
+
+        const [time, setTime] = useState(() => {
+            // console.log('useState init running')
+            return getTimeDifference(Date.parse(expiry), Date.now())
+        })
 
         function getTimeString() {
             let temp = time
-            if(temp < 0) {
+            if(temp < -5000) {
                 // setTimeout(refresh, 5000)
                 return 'waiting...'
             }
@@ -31,12 +35,29 @@ export default function withTimer (WrappedComponent, expiry) {
             return str
         }
 
-        function getTimeDifference(expiration) {
-            // console.log(expiration - Date.now())
-            return expiration - Date.now()
+        async function fetchCurrentTime() {
+            const currentUTCTime = await axios.get('http://worldclockapi.com/api/json/utc/now')
+            const localTime = new Date(currentUTCTime.data.currentDateTime)
+            console.group('Accurate Time from API')
+            console.log(localTime.toISOString())
+            const hostTime = new Date(Date.now())
+            console.log(hostTime - localTime)
+            if(Math.abs(localTime - hostTime) >= 3600) {
+                
+            }
+            console.groupEnd()
+            return currentUTCTime
         }
-    
-        const [time, setTime] = useState(getTimeDifference(Date.parse(expiry)))
+
+        function getTimeDifference(expiration, currentTime) {
+            // console.group('Time Debug')
+            // console.log('exp: ' + new Date(expiration).toISOString())
+            // console.log('now: ' + new Date(currentTime).toISOString())
+            // console.log('dif: ' + (expiration - currentTime))
+            // console.groupEnd()
+            // fetchCurrentTime()
+            return expiration - currentTime
+        }
     
         // Creates an adjusting timer to tick every second
         useEffect(() => {
@@ -54,7 +75,8 @@ export default function withTimer (WrappedComponent, expiry) {
         }, [])
     
         useEffect(() => {
-            const diff = getTimeDifference(Date.parse(expiry))
+            // console.log('expiration changing')
+            const diff = getTimeDifference(Date.parse(expiry), Date.now())
             setTime(diff)
             
             let refreshTime

@@ -1,43 +1,49 @@
 import ItemPreviewTile from '../components/ItemPreviewTile'
 import axios from 'axios'
 import { useState, useEffect } from 'react';
-import '../styles/ItemGrid.css'
+import styles from '../styles/ItemGrid.module.css'
+import { useSearchParams } from 'react-router-dom';
 
 function ItemGrid() {
 
   const [items, setItems] = useState([])
-  const [page, setPage] = useState(1)
+  const [searchParams, setSearchParams] = useSearchParams()
 
   useEffect(() => {
     async function fetchData() {
-      const response = await axios.get(`/api/v1/items?p=${page}`)
+      const response = await axios.get(`/api/v1/items?` + searchParams.toString())
       const newItems = response.data.data.items
-      console.log(newItems.map(item => item.name))
+      console.log(newItems)
       setItems(newItems)
     }
     fetchData()
-  }, [page])
+  }, [searchParams])
+
+  useEffect(() => {
+    console.log(searchParams)
+    if(!searchParams.has('p')) {
+      setSearchParams('p=1')
+    }
+  }, [])
 
   const itemTiles = items.map(item => {
     return (
       <ItemPreviewTile 
         key={item.uniqueName}
-        name={item.name}
+        item={item}
         imgsrc={`https://cdn.warframestat.us/img/${item.imageName}`}
-        masteryReq={item.masteryReq}
       />
     )
   })
 
   const changePage = (e) => {
-    setPage(prevPage => {
-      return prevPage + 1
-    })
+    
   }
 
   return (
-    <div className='item-content content-wrapper'>
-      <div className='item-grid'>
+    <div className='content-wrapper'>
+      <h2 className={styles.header}>Items</h2>
+      <div className={styles.grid}>
         {itemTiles}
       </div>
       <div className='btn-nav'>
