@@ -21,13 +21,6 @@ function Home(props) {
  
     async function fetchWorldStatus() {
         const res = await axios.get(`https://api.warframestat.us/pc`)
-        // console.log(`%cfetching api...`, 'color:#009B77')
-        // console.groupCollapsed('%cWorld Times', 'font-weight:bold')
-        // console.log(`%c  cetus%c: ${res.data.cetusCycle.timeLeft}`, 'color:#00FF00', 'color:white')
-        // console.log(`%cfortuna%c: ${res.data.vallisCycle.timeLeft}`, 'color:#00FF00', 'color:white')
-        // console.log(`%c deimos%c: ${res.data.cambionCycle.timeLeft}`, 'color:#00FF00', 'color:white')
-        // console.log(`%c  deals%c: ${res.data.dailyDeals[0].item}`, 'color:#BEC2CB', 'color:white')
-        // console.groupEnd()
         setFissures(res.data.fissures)
         setWorldStatuses({
             earth: res.data.earthCycle,
@@ -43,6 +36,7 @@ function Home(props) {
     }, [])
 
     function refreshAPI() {
+        console.log('%cattempting a refresh...', 'color:crimson')
         fetchWorldStatus()
     }
 
@@ -55,18 +49,22 @@ function Home(props) {
         DeimosStatusWithTimer = withTimer(WorldStatusTile, worldstatuses.deimos.expiry)
         dealList = deals.map(item => {
             const Deal = withTimer(DarvoDeals, item.expiry)
-            return <Deal className='dealTile' key={item.id} deal={item} />
+            return <Deal className='dealTile' refresh={refreshAPI} key={item.id} deal={item} />
         })
     }
     let fissureList
-    if(fissures) {
+    if(fissures.length) {
+        fissures.filter(fissure => fissure.expired !== true)
+        fissures.sort((a, b) => {
+            if(a.tierNum === b.tierNum) return 0
+            if(a.tierNum < b.tierNum) return -1
+            return 1
+        })
         fissureList = fissures.map(fissure => {
-            const Fissure = withTimer(FissureTile, fissure.exiry)
-            return <Fissure key={fissure.id} fissure={fissure} />
+            const Fissure = withTimer(FissureTile, fissure.expiry)
+            return <Fissure refresh={refreshAPI} key={fissure.id} fissure={fissure} />
         })
     }
-    
-    
 
     return (
         <div className='content-wrapper'>
@@ -76,7 +74,7 @@ function Home(props) {
                 </div>
                 <h1 className='fissure-header section-header'>Fissures</h1>
                 <div className='fissure-list'>
-                    {fissures && fissureList}
+                    {fissures.length && fissureList}
                 </div>
                 <h1 className='status-header section-header'>World Statuses</h1>
                 <div className='worldStatuses'>

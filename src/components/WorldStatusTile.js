@@ -5,10 +5,10 @@ export default function WorldStatusTile({time, title, world}) {
 
     const {state, active} = world
     let colorClass = ''
-    if(state === 'cold' || active === 'voss') colorClass = 'coldAndVoss'
+    if(state === 'cold' || active === 'vome') colorClass = 'coldAndVoss'
     else if(state === 'warm' || active === 'fass') colorClass = 'warmAndFass'
     else if(state === 'day') colorClass = 'yellow'
-    else if(state === 'night') colorClass = 'purple'
+    else if(state === 'night') colorClass = 'night'
 
     return (
         <div className={styles.status}>
