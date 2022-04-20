@@ -84,7 +84,7 @@ export default function withTimer (WrappedComponent, expiry) {
                 refreshTime = 5000
             }
             const refreshTimer = setTimeout(() => {
-                refresh()
+                // refresh()
             }, refreshTime || (Date.parse(expiry) + 5 * 1000))
 
             return () => {

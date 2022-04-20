@@ -21,7 +21,7 @@ export default function WorldStatusTile({time, title, world}) {
                 </span>
                 <span className={styles.timer}>{time}</span>
             </div>
-            <p className={styles.eta}></p>
+            <p className={styles.desc}></p>
         </div>
     )
 }

@@ -5,6 +5,7 @@ import '../styles/Home.css'
 import withTimer from '../components/Timer'
 import WorldStatusTile from '../components/WorldStatusTile'
 import DarvoDeals from '../components/DarvoDeals'
+import FissureTile from '../components/FissureTile'
 
 axios.defaults.headers = {
     'Cache-Control': 'no-cache',
@@ -15,17 +16,19 @@ axios.defaults.headers = {
 function Home(props) {
 
     const [worldstatuses, setWorldStatuses] = useState()
+    const [fissures, setFissures] = useState([])
     const [deals, setDeals] = useState([])
  
     async function fetchWorldStatus() {
         const res = await axios.get(`https://api.warframestat.us/pc`)
-        console.log(`%cfetching api...`, 'color:#009B77')
-        console.groupCollapsed('%cWorld Times', 'font-weight:bold')
-        console.log(`%c  cetus%c: ${res.data.cetusCycle.timeLeft}`, 'color:#00FF00', 'color:white')
-        console.log(`%cfortuna%c: ${res.data.vallisCycle.timeLeft}`, 'color:#00FF00', 'color:white')
-        console.log(`%c deimos%c: ${res.data.cambionCycle.timeLeft}`, 'color:#00FF00', 'color:white')
-        console.log(`%c  deals%c: ${res.data.dailyDeals[0].item}`, 'color:#BEC2CB', 'color:white')
-        console.groupEnd()
+        // console.log(`%cfetching api...`, 'color:#009B77')
+        // console.groupCollapsed('%cWorld Times', 'font-weight:bold')
+        // console.log(`%c  cetus%c: ${res.data.cetusCycle.timeLeft}`, 'color:#00FF00', 'color:white')
+        // console.log(`%cfortuna%c: ${res.data.vallisCycle.timeLeft}`, 'color:#00FF00', 'color:white')
+        // console.log(`%c deimos%c: ${res.data.cambionCycle.timeLeft}`, 'color:#00FF00', 'color:white')
+        // console.log(`%c  deals%c: ${res.data.dailyDeals[0].item}`, 'color:#BEC2CB', 'color:white')
+        // console.groupEnd()
+        setFissures(res.data.fissures)
         setWorldStatuses({
             earth: res.data.earthCycle,
             cetus: res.data.cetusCycle,
@@ -52,7 +55,14 @@ function Home(props) {
         DeimosStatusWithTimer = withTimer(WorldStatusTile, worldstatuses.deimos.expiry)
         dealList = deals.map(item => {
             const Deal = withTimer(DarvoDeals, item.expiry)
-            return <Deal key={item.id} deal={item} />
+            return <Deal className='dealTile' key={item.id} deal={item} />
+        })
+    }
+    let fissureList
+    if(fissures) {
+        fissureList = fissures.map(fissure => {
+            const Fissure = withTimer(FissureTile, fissure.exiry)
+            return <Fissure key={fissure.id} fissure={fissure} />
         })
     }
     
@@ -64,31 +74,37 @@ function Home(props) {
                 <div className='banner'>
                     <img src='/imgs/wf-example-major-news.jpeg' alt='warframe-news' />
                 </div>
+                <h1 className='fissure-header section-header'>Fissures</h1>
+                <div className='fissure-list'>
+                    {fissures && fissureList}
+                </div>
                 <h1 className='status-header section-header'>World Statuses</h1>
-                {worldstatuses && <EarthStatusWithTimer 
-                    className='earth'
-                    title='Earth'
-                    world={worldstatuses.earth}
-                    refresh={refreshAPI}
-                />}
-                {worldstatuses && <CetusStatusWithTimer 
-                    className='cetus'
-                    title='Plains of Eidolon'
-                    world={worldstatuses.cetus}
-                    refresh={refreshAPI}
-                />}
-                {worldstatuses && <FortunaStatusWithTimer 
-                    className='fortuna'
-                    title='Orb Vallis'
-                    world={worldstatuses.fortuna}
-                    refresh={refreshAPI}
-                />}
-                {worldstatuses && <DeimosStatusWithTimer 
-                    className='cetus'
-                    title='Cambion Drift'
-                    world={worldstatuses.deimos}
-                    refresh={refreshAPI}
-                />}
+                <div className='worldStatuses'>
+                    {worldstatuses && <EarthStatusWithTimer 
+                        className='earth'
+                        title='Earth'
+                        world={worldstatuses.earth}
+                        refresh={refreshAPI}
+                    />}
+                    {worldstatuses && <CetusStatusWithTimer 
+                        className='cetus'
+                        title='Plains of Eidolon'
+                        world={worldstatuses.cetus}
+                        refresh={refreshAPI}
+                    />}
+                    {worldstatuses && <FortunaStatusWithTimer 
+                        className='fortuna'
+                        title='Orb Vallis'
+                        world={worldstatuses.fortuna}
+                        refresh={refreshAPI}
+                    />}
+                    {worldstatuses && <DeimosStatusWithTimer 
+                        className='cetus'
+                        title='Cambion Drift'
+                        world={worldstatuses.deimos}
+                        refresh={refreshAPI}
+                    />}
+                </div>
                 <h1 className='darvo-header section-header'>Darvo Deals</h1>
                 {worldstatuses && dealList}
                 <h1 className='explore-header section-header'>Explore Game Content</h1>

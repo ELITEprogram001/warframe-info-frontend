@@ -2,7 +2,7 @@ import axios from 'axios'
 import {useState, useEffect} from 'react'
 import '../styles/DarvoDeals.css'
 
-export default function DarvoDeals({time, deal}) {
+export default function DarvoDeals({time, deal, className}) {
 
     const [imgSrc, setImgSrc] = useState('')
 
@@ -25,7 +25,7 @@ export default function DarvoDeals({time, deal}) {
     }, [deal])
 
     return (
-        <div className='deal-tile'>
+        <div className={className}>
             {isSoldOut() && 
                 <div className='out-of-stock-overlay'>
                     <div className='out-of-stock-banner '>OUT OF STOCK</div>

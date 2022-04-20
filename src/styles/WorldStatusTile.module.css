@@ -5,7 +5,6 @@
     padding: .3rem .75rem;
     display: flex;
     flex-direction: column;
-
 }
 
 .title {
@@ -44,4 +43,8 @@
 
 .night {
     color: darkslateblue;
+}
+
+.desc {
+    margin: 0;
 }
