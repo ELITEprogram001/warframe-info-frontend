@@ -1,0 +1,47 @@
+.status{
+    border: 1px solid #444;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: .3rem .75rem;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.title {
+    font-family: var(--font-title);
+    font-size: 1rem;
+    margin: 0;
+}
+
+.titleAndTimerWrapper {
+    display: grid;
+    grid-template-columns: max-content max-content 1fr max-content;
+    grid-template-rows: 1fr;
+    align-items: center;
+}
+
+.timer {
+    justify-self: flex-end;
+}
+
+.worldState {
+    margin: 0 .3rem;
+    font-size: .9rem;
+}
+
+.coldAndVoss {
+    color: aquamarine;
+}
+
+.warmAndFass {
+    color: crimson;
+}
+
+.yellow {
+    color: goldenrod;
+}
+
+.night {
+    color: darkslateblue;
+}
