@@ -4,14 +4,16 @@
     box-sizing: border-box;
     position: relative;
     font-size: .9rem;
+    max-height: 250px;
 }
 
-.deal-item-name {
-    font-family: var(--font-title);
+.itemName {
+    font-family: var(--font-body);
     margin: 0 0 .4rem 0;
+    font-size: 1.4rem;
 }
 
-.deal-item-name span {
+.discount {
     font-family: var(--font-body);
     font-style: italic;
     font-size: .8rem;
@@ -19,7 +21,7 @@
     margin: 0 .2rem;
 }
 
-.out-of-stock-overlay {
+.soldOutOverlay {
     width: 100%;
     height: 100%;
     border-radius: 10px;
@@ -28,7 +30,7 @@
     z-index: 500;
 }
 
-.out-of-stock-banner {
+.soldOutBanner {
     display: none;
     width: 100%;
     background: rgba(255, 30, 0, 0.534);
@@ -45,7 +47,7 @@
     z-index: 500;
 }
 
-.deal-wrapper {
+.wrapper {
     height: 100%;
     padding: .3rem .75rem;
     display: flex;
@@ -58,7 +60,7 @@
     display: block;
 }
 
-.stock-info {
+.stockInfo {
     position: absolute;
     bottom: .75rem;
     left: .75rem;
@@ -71,28 +73,29 @@
     align-self: center;
 }
 
-.items-out {
+.amountGone {
     width: 100%;
     background: red;
+    margin: .3rem 0 0 0;
 }
 
-.items-left {
+.itemsLeft {
     width: 0%;
     background: lightgreen;
 }
 
-.weapon-img {
+.img {
     width: 50%;
     position: absolute;
     right: 0;
     top: 0;
 }
 
-.deal-wrapper p {
+.infoRowText {
     margin: 0;
 }
 
-.slightly-bolded {
+.slightlyBolded {
     font-weight: 600;
 }
 
@@ -102,16 +105,12 @@
     margin-left: .1rem;
 }
 
-.item-info-row {
+.infoRow {
     display: flex;
     align-items: center;
 }
 
-.items-out {
-    margin: .3rem 0 0 0;
-}
-
-.eta-timer {
+.eta {
     position: absolute;
     right: .75rem;
     top: .3rem;

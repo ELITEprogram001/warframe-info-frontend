@@ -4,7 +4,7 @@ import axios from 'axios'
 export default function withTimer (WrappedComponent, expiry) {
     return ({...props}) => {
 
-        const [time, setTime] = useState(0)
+        const [time, setTime] = useState()
 
         function getTimeString() {
             let temp = time
@@ -12,7 +12,7 @@ export default function withTimer (WrappedComponent, expiry) {
                 return 'waiting...'
             }
             
-            const ms = temp % 1000
+            // const ms = temp % 1000
             temp = Math.floor(temp / 1000)
             const sec = temp % 60
             temp = Math.floor(temp / 60)
@@ -23,10 +23,14 @@ export default function withTimer (WrappedComponent, expiry) {
             const day = temp
             
             let str = ''
-            str += day ? `${day}d` : ''
-            str += hour ? ` ${hour}h` : ''
-            str += min ? ` ${min}m` : ''
-            str += sec ? ` ${sec}s` : ''
+            str += day ? `${day}:` : ''
+            if(day) {
+                str += hour ? `${hour}:`.padStart(3, '0') : ''
+            } else {
+                str += hour ? `${hour}:` : ''
+            }
+            str += min ? `${min}:`.padStart(3, '0') : '00:'
+            str += sec ? `${sec}`.padStart(2, '0') : '00'
 
             return str
         }

@@ -1,4 +1,4 @@
-import '../styles/NavBar.css'
+import styles from '../styles/NavBar.module.css'
 import { Link } from 'react-router-dom'
 
 const NavBar = props => {
@@ -9,14 +9,20 @@ const NavBar = props => {
                 <li>
                     <Link to='/'>Home</Link>
                 </li>
-                <li>
-                    <Link to='/items'>Items</Link>
+                <li className={styles.wip}>
+                    <span className={styles.info}>This feature is still being worked on.</span>
+                    {/* <Link to='/items'>Items</Link> */}
+                    <Link to='/'>Items</Link>
                 </li>
-                <li>
-                    <Link to='/warframes'>Warframes</Link>
+                <li className={styles.wip}>
+                    <span className={styles.info}>This feature is still being worked on.</span>
+                    {/* <Link to='/warframes'>Warframes</Link> */}
+                    <Link to='/'>Warframes</Link>
                 </li>
-                <li>
-                    <Link to='/planner'>Planner</Link>
+                <li className={styles.wip}>
+                    <span className={styles.info}>This feature is still being worked on.</span>
+                    {/* <Link to='/planner'>Planner</Link> */}
+                    <Link to='/'>Planner</Link>
                 </li>
             </ul>
         </nav>

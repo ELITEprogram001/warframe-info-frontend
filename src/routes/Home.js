@@ -6,6 +6,7 @@ import withTimer from '../components/Timer'
 import WorldStatusTile from '../components/WorldStatusTile'
 import DarvoDeals from '../components/DarvoDeals'
 import FissureTile from '../components/FissureTile'
+import FissureList from '../components/FissureList'
 
 axios.defaults.headers = {
     'Cache-Control': 'no-cache',
@@ -52,19 +53,6 @@ function Home(props) {
             return <Deal className='dealTile' refresh={refreshAPI} key={item.id} deal={item} />
         })
     }
-    let fissureList
-    if(fissures.length) {
-        fissures.filter(fissure => fissure.expired !== true)
-        fissures.sort((a, b) => {
-            if(a.tierNum === b.tierNum) return 0
-            if(a.tierNum < b.tierNum) return -1
-            return 1
-        })
-        fissureList = fissures.map(fissure => {
-            const Fissure = withTimer(FissureTile, fissure.expiry)
-            return <Fissure refresh={refreshAPI} key={fissure.id} fissure={fissure} />
-        })
-    }
 
     return (
         <div className='content-wrapper'>
@@ -72,10 +60,8 @@ function Home(props) {
                 <div className='banner'>
                     <img src='/imgs/wf-example-major-news.jpeg' alt='warframe-news' />
                 </div>
-                <h1 className='fissure-header section-header'>Fissures</h1>
-                <div className='fissure-list'>
-                    {fissures.length && fissureList}
-                </div>
+                <h1 className='fissure-header section-header'>Active Fissures</h1>
+                <FissureList fissures={fissures} refresh={refreshAPI} />
                 <h1 className='status-header section-header'>World Statuses</h1>
                 <div className='worldStatuses'>
                     {worldstatuses && <EarthStatusWithTimer 

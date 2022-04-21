@@ -19,7 +19,7 @@ export default function WorldStatusTile({time, title, world}) {
                         {world.state || world.active}
                     </span>)
                 </span>
-                <span className={styles.timer}>{time}</span>
+                <span className={`timer ${styles.timer}`}>{time}</span>
             </div>
             <p className={styles.desc}></p>
         </div>

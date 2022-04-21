@@ -2,12 +2,12 @@
     width: 90%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 400px 60px 200px 60px 1fr;
+    grid-template-rows: 400px 60px max-content 60px 1fr;
     gap: 15px;
     grid-template-areas: 
         "major major major major major"
-        ". fissure-header fissure-header status-header darvo-header"
-        ". fissure-list fissure-list statuses darvo"
+        "fissure-header fissure-header fissure-header status-header darvo-header"
+        "fissure-list fissure-list fissure-list statuses darvo"
         "explore-header explore-header explore-header explore-header explore-header"
         "primary secondary warframe warframe warframe";
 }
@@ -16,15 +16,12 @@
     grid-area: fissure-header;
 }
 
-.fissure-list {
-    grid-area: fissure-list;
-}
-
 .worldStatuses {
     grid-area: statuses;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    max-height: 250px;
 }
 
 .darvo-header {
@@ -89,4 +86,12 @@ img {
 
 .warframe {
     grid-area: warframe;
+}
+
+.timer {
+    font-family: var(--font-timer);
+    font-weight: 100;
+    color: #aaa;
+    min-width: 8ch;
+    text-align: right;
 }

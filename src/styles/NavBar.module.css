@@ -42,6 +42,34 @@ h1 a {
     color: white;
 }
 
-a:hover {
+.wip {
+    position: relative;
+}
+
+.wip:after {
+    content: ' ';
+    position: absolute;
+    top: 55%;
+    left: -10%;
+    width: 120%;
+    height: 2px;
+    background: gold;
+}
+
+.wip:hover .info {
+    visibility: visible;
+}
+
+.info {
     color: white;
+    visibility: hidden;
+    background: var(--main-bg-color);
+    border-radius: 8px;
+    text-align: center;
+    padding: 5px;
+
+    position: absolute;
+    top: 100%;
+    margin-left: -60px;
+    width: max-content;
 }

@@ -1,0 +1,49 @@
+.list {
+    grid-area: fissure-list;
+    display: grid;
+    grid-template-columns: 
+        [lith] 1fr
+        [meso] 1fr
+        [neo] 1fr
+        [axi] 1fr
+        [req] 1fr ;
+    grid-template-rows:
+        [headers] min-content   
+        [content] min-content;
+    grid-template-areas: 
+        '. . . . .'
+        'lith meso neo axi req';
+    gap: 8px;
+}
+
+.fissureColumn {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    /* background: crimson; */
+}
+
+.columnHeader {
+    margin: 0;
+    font-weight: 700;
+}
+
+.lithFissures {
+    grid-area: lith;
+}
+
+.mesoFissures {
+    grid-area: meso;
+}
+
+.neoFissures {
+    grid-area: neo;
+}
+
+.axiFissures {
+    grid-area: axi;
+}
+
+.reqFissures {
+    grid-area: req;
+}

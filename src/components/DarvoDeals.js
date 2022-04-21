@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {useState, useEffect} from 'react'
-import '../styles/DarvoDeals.css'
+import styles from '../styles/DarvoDeals.module.css'
 
 export default function DarvoDeals({time, deal, className}) {
 
@@ -25,33 +25,39 @@ export default function DarvoDeals({time, deal, className}) {
     }, [deal])
 
     return (
-        <div className={className}>
+        <div className={styles[className]}>
             {isSoldOut() && 
-                <div className='out-of-stock-overlay'>
-                    <div className='out-of-stock-banner '>OUT OF STOCK</div>
+                <div className={styles.soldOutOverlay}>
+                    <div className={styles.soldOutBanner}>OUT OF STOCK</div>
                 </div>
             }
-            <div className='deal-wrapper'>
-                <h1 className='deal-item-name status-title'>
+            <div className={styles.wrapper}>
+                <h1 className={`${styles.itemName}`}>
                     {deal.item}
-                    <span>({`${deal.discount}% off` })</span>
+                    <span className={styles.discount}>({`${deal.discount}% off` })</span>
                 </h1>
-                <div className='item-info-row'>
-                    <p><span className='slightly-bolded'>Sale Price:</span> {`${deal.salePrice} `}</p>
-                    <img className='icon' src='/imgs/plat-icon.png' alt='plat icon' />
+                <div className={styles.infoRow}>
+                    <p className={styles.infoRowText}>
+                        <span className={styles.slightlyBolded}>Sale Price:</span> 
+                        {` ${deal.salePrice} `}
+                    </p>
+                    <img className={styles.icon} src='/imgs/plat-icon.png' alt='plat icon' />
                 </div>
-                <div className='item-info-row'>
-                    <p><span className='slightly-bolded'>Original Price:</span> {`${deal.originalPrice} `}</p>
-                    <img className='icon' src='/imgs/plat-icon.png' alt='plat icon' />
+                <div className={styles.infoRow}>
+                    <p className={styles.infoRowText}>
+                        <span className={styles.slightlyBolded}>Original Price:</span> 
+                        {` ${deal.originalPrice} `}
+                    </p>
+                    <img className={styles.icon} src='/imgs/plat-icon.png' alt='plat icon' />
                 </div>
-                {imgSrc && <img className='weapon-img' src={`https://cdn.warframestat.us/img/${imgSrc}`} alt='daily deal item'/>}
-                <div className='eta-timer'>{time}</div>
-                <div className='stock-info'>
-                    <div className='item-info-row'>
-                        <p><span className='slightly-bolded'>Stock:</span> {`${deal.total - deal.sold} / ${deal.total} left`}</p>
+                {imgSrc && <img className={styles.img} src={`https://cdn.warframestat.us/img/${imgSrc}`} alt='daily deal item'/>}
+                <div className={`${styles.eta} timer`}>{time}</div>
+                <div className={styles.stockInfo}>
+                    <div className={styles.infoRow}>
+                        <p><span className={styles.slightlyBolded}>Stock:</span> {`${deal.total - deal.sold} / ${deal.total} left`}</p>
                     </div>
-                    <div className='items-out meter'>
-                        <div className='items-left meter' style={{width: `${percentItemsLeft()}%`}}>
+                    <div className={`${styles.amountGone} ${styles.meter}`}>
+                        <div className={`${styles.itemsLeft} ${styles.meter}`} style={{width: `${percentItemsLeft()}%`}}>
                         </div>
                     </div>
                 </div>
