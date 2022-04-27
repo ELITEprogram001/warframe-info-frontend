@@ -9,7 +9,13 @@ export default function FissureList({fissures, refresh}) {
         return fissure.expired !== true
     })
     filteredFissures.sort((a, b) => {
-        if(a.tierNum === b.tierNum) return 0
+        if(a.tierNum === b.tierNum) {
+            const aExpiry = new Date(a.expiry)
+            const bExpiry = new Date(b.expiry)
+            if(aExpiry == bExpiry) return 0
+            if(aExpiry < bExpiry) return -1
+            return 1
+        }
         if(a.tierNum < b.tierNum) return -1
         return 1
     })
